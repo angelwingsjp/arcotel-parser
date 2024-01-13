@@ -1,6 +1,6 @@
 {
   "name": "arcotel-parser",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Parser of the class schedule of the Arkhangelsk college telecommunications named after. B.L. Rozinga",
   "type": "module",
   "main": "src/index.js",
@@ -22,10 +22,6 @@
   "dependencies": {
     "axios": "^1.6.5",
     "cheerio": "^1.0.0-rc.12",
-    "node-html-parser": "^6.1.12",
-    "nodemon": "^3.0.2",
-    "punycode": "^2.3.1",
-    "puppeteer": "^21.7.0",
-    "request-promise": "^4.2.6"
+    "nodemon": "^3.0.2"
   }
 }

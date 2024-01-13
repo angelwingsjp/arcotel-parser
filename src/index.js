@@ -6,8 +6,9 @@ const textbeautifier = (text) => {
 };
 
 const group = 55397;
-console.log("- selected group: " + group);
-const url = "https://arcotel.ru/studentam/raspisanie-i-grafiki/raspisanie-zanyatiy-studentov-ochnoy-i-vecherney-form-obucheniya?group=" + group;
+console.log("- Selected group: " + group);
+
+const url = "https://arcotel.ru/studentam/raspisanie-i-grafiki/raspisanie-zanyatiy-studentov-ochnoy-i-vecherney-form-obucheniya?group=" + group + "&date=2024-01-15";
 
 const ua = "Mediapartners-Google";
 const response = await axios.get(url, {
@@ -18,17 +19,31 @@ const response = await axios.get(url, {
 const html = response.data;
 const $ = cheerio.load(html);
 
-const selectedDay = 5;
-console.log("- selected day: " + selectedDay);
+const selectedDay = 1;
+console.log("- Selected day: " + selectedDay);
+
+let subjectIndex = (selectedDay != 1) ? 1 : 0;
 
 const i = $(`.vt239.rasp-day.rasp-day${selectedDay}`);
 for (const q of i) {
+    const subject = textbeautifier($(q).find(".vt240").text());
+    const teacher = textbeautifier($(q).find(".teacher").text());
+    const classroom = textbeautifier($(q).find(".vt242").text()).replace("; ", '');
+    const type = textbeautifier($(q).find(".vt243").text());
+
     const data = {
-        subject: textbeautifier($(q).find(".vt240").text()),
-        teacher: textbeautifier($(q).find(".teacher").text()),
-        classroom: textbeautifier($(q).find(".vt242").text()).replace("; ", ''),
-        type: textbeautifier($(q).find(".vt243").text()),
+	index: subjectIndex,
+        subject: subject,
+        teacher: teacher,
+        classroom: classroom,
+        type: type,
     };
-    const text = $(q).text().trim();
+
+    if (subject.trim() === '') {
+        console.log("[!] Empty string found. Skipping");
+        continue;
+    };
+
+    subjectIndex++;
     console.log(data);
 }
