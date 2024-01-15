@@ -1,12 +1,12 @@
-import axios from "axios";
-import * as cheerio from "cheerio";
+import axios from 'axios';
+import * as cheerio from 'cheerio';
 
 const textbeautifier = (text) => {
     return text.replace(/\t/g, '').replace(/\n/g, '');
 };
 
-const group = 55397;
-console.log("- Selected group: " + group);
+let group = 55397;
+console.log("- Selected group: " + group);;
 
 const url = "https://arcotel.ru/studentam/raspisanie-i-grafiki/raspisanie-zanyatiy-studentov-ochnoy-i-vecherney-form-obucheniya?group=" + group + "&date=2024-01-15";
 
@@ -24,7 +24,7 @@ await axios.get(url, {
         console.log("[!] Current week: " + getCurrentWeek);
 
         // Текущий селектор дня; требует переработки
-        const selectedDay = 2;
+        const selectedDay = 1;
 
         let dayOfWeek = '';
         switch(selectedDay) {
@@ -52,7 +52,7 @@ await axios.get(url, {
         console.log(`- Selected day: ${dayOfWeek} (${selectedDay})`);
 
         let subjectIndex = (selectedDay != 1) ? 1 : 0;
-
+        let jsonData = [];
         const i = $(`.vt239.rasp-day.rasp-day${selectedDay}`);
         for (const q of i) {
             const subject = textbeautifier($(q).find(".vt240").text());
@@ -74,11 +74,10 @@ await axios.get(url, {
             };
             subjectIndex++;
 
-            const jsonData = [];
             jsonData.push(data);
-            const jsonString = JSON.stringify(data, null, 2);
-            console.log(jsonString);
         }
+        const jsonString = JSON.stringify(jsonData, null, 2);
+        console.log(jsonString);
     })
     .catch(error => {
         console.error(error);
