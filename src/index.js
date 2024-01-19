@@ -1,84 +1,23 @@
-import axios from 'axios';
-import * as cheerio from 'cheerio';
+const fetchData = require('./helpers/fetchData.js');
 
-const textbeautifier = (text) => {
-    return text.replace(/\t/g, '').replace(/\n/g, '');
-};
+async function main() {
+  try {
+    let group = 55397;
+    const url = "https://arcotel.ru/studentam/raspisanie-i-grafiki/raspisanie-zanyatiy-studentov-ochnoy-i-vecherney-form-obucheniya?group=" + group + "&date=2024-01-22";
+    const ua = 'Mediapartners-Google';
 
-let group = 55397;
-console.log("- Selected group: " + group);;
-
-const url = "https://arcotel.ru/studentam/raspisanie-i-grafiki/raspisanie-zanyatiy-studentov-ochnoy-i-vecherney-form-obucheniya?group=" + group + "&date=2024-01-15";
-
-const ua = "Mediapartners-Google";
-await axios.get(url, {
-    headers: {
-        'User-Agent': ua,
+    const jsonData = await fetchData(url, ua);
+    for (let item of jsonData) {
+      console.log();
+      console.log(item.index);
+      console.log(`- Предмет: ${item.subject}`);
+      console.log(`- Преподаватель: ${item.teacher}`);
+      console.log(`- Аудитория: ${item.classroom}`);
+      console.log(`- Тип: ${item.type}`);
     }
-})
-    .then(response => {
-        const html = response.data;
-        const $ = cheerio.load(html);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-        const getCurrentWeek = textbeautifier($("div.vt234").find("span").text());
-        console.log("[!] Current week: " + getCurrentWeek);
-
-        // Текущий селектор дня; требует переработки
-        const selectedDay = 1;
-
-        let dayOfWeek = '';
-        switch(selectedDay) {
-            case 1:
-                dayOfWeek = "понедельник";
-                break;
-            case 2:
-                dayOfWeek = "вторник";
-                break;
-            case 3:
-                dayOfWeek = "среда";
-                break;
-            case 4:
-                dayOfWeek = "четверг";
-                break;
-            case 5:
-                dayOfWeek = "пятница";
-                break;
-            case 6:
-                dayOfWeek = "суббота";
-                break;
-            default:
-                console.error("[!] Invalid selected day");
-        }
-        console.log(`- Selected day: ${dayOfWeek} (${selectedDay})`);
-
-        let subjectIndex = (selectedDay != 1) ? 1 : 0;
-        let jsonData = [];
-        const i = $(`.vt239.rasp-day.rasp-day${selectedDay}`);
-        for (const q of i) {
-            const subject = textbeautifier($(q).find(".vt240").text());
-            const teacher = textbeautifier($(q).find(".teacher").text());
-            const classroom = textbeautifier($(q).find(".vt242").text()).replace("; ", '');
-            const type = textbeautifier($(q).find(".vt243").text());
-
-            var data = {
-                index: subjectIndex,
-                subject: subject,
-                teacher: teacher,
-                classroom: classroom,
-                type: type,
-            };
-
-            if (subject.trim() === '') {
-                console.log("[!] Empty string found. Skipping");
-                continue;
-            };
-            subjectIndex++;
-
-            jsonData.push(data);
-        }
-        const jsonString = JSON.stringify(jsonData, null, 2);
-        console.log(jsonString);
-    })
-    .catch(error => {
-        console.error(error);
-    });
+main();

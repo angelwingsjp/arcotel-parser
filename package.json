@@ -2,10 +2,9 @@
   "name": "arcotel-parser",
   "version": "1.0.1",
   "description": "Parser of the class schedule of the Arkhangelsk college telecommunications named after. B.L. Rozinga",
-  "type": "module",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon"
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
