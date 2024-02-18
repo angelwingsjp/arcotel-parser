@@ -1,4 +1,5 @@
 const readline = require('readline');
+
 const fetchData = require('./helpers/fetchData.js');
 
 const rl = readline.createInterface({
