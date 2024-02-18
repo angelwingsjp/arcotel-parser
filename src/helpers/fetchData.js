@@ -27,8 +27,6 @@ async function fetchData(url, ua, selectedDay) {
     const getCurrentWeek = textbeautifier($("div.vt234").find("span").text());
     console.log(`- Текущая неделя: ${getCurrentWeek}`);
 
-    console.log(`- Выбранный день: ${selectedDay}`);
-
     let subjectIndex = (selectedDay != 1) ? 1 : 0;
     const i = $(`.vt239.rasp-day.rasp-day${selectedDay}`);
 

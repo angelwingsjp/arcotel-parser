@@ -12,13 +12,22 @@ async function main() {
     rl.question('Введите номер группы: ', async (group) => {
       rl.question('Введите номер выбранного дня: ', async (selectedDay) => {
         rl.close();
-        console.log('Номер группы: ' + group);
-        console.log('Номер выбранного дня: ' + selectedDay);
 
+        // Отображение выбранного дня и номера группы
+        const dayNames = ['понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
+        const dayIndex = parseInt(selectedDay) - 1;
+        if (dayIndex >= 0 && dayIndex <= 5) {
+          const dayName = dayNames[dayIndex];
+          console.log(`- Выбранный день: ${dayIndex + 1} (${dayName})`);
+        } else {
+          throw new Error("[!] Неверный номер дня");
+        }
+        console.log(`- Номер группы: ${group}`);
+
+        // Получение текущей даты, отброс воскресенья
         let currentDate = new Date();
         const day = currentDate.getDay(); 
         const isSunday = (day === 0); 
-
         if (isSunday) {
           currentDate.setDate(currentDate.getDate() + 1);
         }
