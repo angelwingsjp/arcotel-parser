@@ -1,11 +1,19 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
+// Константа, удаляющая мусорную табуляцию
 const textbeautifier = (text) => {
     return text.replace(/\t/g, '').replace(/\n/g, '');
 };
 
-async function fetchData(url, ua) {
+/**
+ * Получение данных с указанного URL с использованием заданного заголовка User-Agent.
+ *
+ * @param {string} url - URL-адрес, с которого нужно получить данные
+ * @param {string} ua - Заголовок User-Agent
+ * @param {number} selectedDay - Выбранный день для сбора данных
+ */
+async function fetchData(url, ua, selectedDay) {
   try {
     const response = await axios.get(url, {
       headers: {
@@ -17,10 +25,9 @@ async function fetchData(url, ua) {
     const $ = cheerio.load(html);
 
     const getCurrentWeek = textbeautifier($("div.vt234").find("span").text());
-    console.log(`- Current week: ${getCurrentWeek}`);
+    console.log(`- Текущая неделя: ${getCurrentWeek}`);
 
-    const selectedDay = 1;
-    console.log(`- Selected day: ${selectedDay}`);
+    console.log(`- Выбранный день: ${selectedDay}`);
 
     let subjectIndex = (selectedDay != 1) ? 1 : 0;
     const i = $(`.vt239.rasp-day.rasp-day${selectedDay}`);
@@ -41,7 +48,7 @@ async function fetchData(url, ua) {
       };
 
       if (subject.trim() === '') {
-        console.log("[!] Empty string found. Skipping");
+        console.log("[!] Найдена пустая строка. Пропускаю");
         continue;
       };
       subjectIndex++;
