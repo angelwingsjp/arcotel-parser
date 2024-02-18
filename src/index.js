@@ -37,13 +37,21 @@ async function main() {
         const ua = 'Mediapartners-Google';
         
         const jsonData = await fetchData(url, ua, selectedDay);
-        for (let item of jsonData) {
-          console.log();
-          console.log(item.index);
-          console.log('- Предмет: ' + item.subject);
-          console.log('- Преподаватель: ' + item.teacher);
-          console.log('- Аудитория: ' + item.classroom);
-          console.log('- Тип: ' + item.type);
+        if (jsonData.length === 0) {
+          console.log('Отсутствуют пары');
+        } else {
+          for (let item of jsonData) {
+            console.log();
+            console.log(item.index);
+            if (item.subject !== 'Нет пары') {
+              console.log('- Предмет: ' + item.subject);
+              console.log('- Преподаватель: ' + item.teacher);
+              console.log('- Аудитория: ' + item.classroom);
+              console.log('- Тип: ' + item.type);
+            } else {
+              console.log(item.subject);
+            }
+          }
         }
       });
     });

@@ -39,16 +39,16 @@ async function fetchData(url, ua, selectedDay) {
 
       var data = {
         index: subjectIndex,
-        subject: subject,
-        teacher: teacher,
-        classroom: classroom,
-        type: type,
       };
 
       if (subject.trim() === '') {
-        console.log("[!] Найдена пустая строка. Пропускаю");
-        continue;
-      };
+        data.subject = 'Нет пары';
+      } else {
+        data.subject = subject;
+        data.teacher = teacher;
+        data.classroom = classroom;
+        data.type = type;
+      }
       subjectIndex++;
 
       jsonData.push(data);
