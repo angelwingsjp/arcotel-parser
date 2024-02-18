@@ -10,5 +10,5 @@
 
 ## Подготовка исходников
 1. Склонируйте исходный код, используя команду `git clone https://github.com/muuneneko/arcotel-parser/`
-2. Укажи номер своей группы в `src/index.js` (константа group, строка 5)
+2. Найдите ID своей группы, следуя [данной таблице](https://github.com/muuneneko/arcotel-parser/blob/main/docs/groups.md)
 3. А теперь... \*барабанная дробь\* Вы готовы к `node src/index.js`!
