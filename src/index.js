@@ -32,25 +32,36 @@ async function main() {
           currentDate.setDate(currentDate.getDate() + 1);
         }
 
+        // Query data
         const query = "?group=" + group + "&date=" + currentDate.toISOString().slice(0, 10);
         const url = "https://arcotel.ru/studentam/raspisanie-i-grafiki/raspisanie-zanyatiy-studentov-ochnoy-i-vecherney-form-obucheniya" + query;
         const ua = 'Mediapartners-Google';
         
         const jsonData = await fetchData(url, ua, selectedDay);
-        if (jsonData.length === 0) {
-          console.log('Отсутствуют пары');
-        } else {
-          for (let item of jsonData) {
-            console.log();
-            console.log(item.index);
-            if (item.subject !== 'Нет пары') {
-              console.log('- Предмет: ' + item.subject);
-              console.log('- Преподаватель: ' + item.teacher);
-              console.log('- Аудитория: ' + item.classroom);
-              console.log('- Тип: ' + item.type);
-            } else {
-              console.log(item.subject);
+        for (let i = 0; i < jsonData.length; i++) {
+          if (i === 0 && dayIndex === 1) {
+            continue; // Пропустить первую пару во вторник
+          }
+
+          if (i === jsonData.length - 1) {
+            if (jsonData[i].subject === 'Нет пары') {
+              continue; // Пропуск вывода пары
             }
+          }
+
+          console.log(); // Пустая строка для переноса
+          console.log(i + 1 - (dayIndex === 1 ? 1 : 0)); // Нумерация пар с 1 со вторника
+
+          // Отображение расписания
+          if (jsonData[i].subject !== 'Нет пары') {
+            console.log('- Предмет: ' + jsonData[i].subject);
+            if (jsonData[i].subject !== 'Классный час') {
+              console.log('- Преподаватель: ' + jsonData[i].teacher);
+              console.log('- Аудитория: ' + jsonData[i].classroom);
+              console.log('- Тип: ' + jsonData[i].type);
+            }
+          } else {
+            console.log(jsonData[i].subject);
           }
         }
       });
