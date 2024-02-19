@@ -1,9 +1,9 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-// Константа, удаляющая мусорную табуляцию
+// Константа, удаляющая мусорную табуляцию и перенос строк
 const textbeautifier = (text) => {
-    return text.replace(/\t/g, '').replace(/\n/g, '');
+    return text.replace(/\t|\n/g, '');
 };
 
 /**
@@ -34,7 +34,7 @@ async function fetchData(url, ua, selectedDay) {
     for (const q of i) {
       const subject = textbeautifier($(q).find(".vt240").text());
       const teacher = textbeautifier($(q).find(".teacher").text());
-      const classroom = textbeautifier($(q).find(".vt242").text()).replace("; ", "");
+      const classroom = textbeautifier($(q).find(".vt242").text()).replace(/[^0-9]/g, "");
       const type = textbeautifier($(q).find(".vt243").text());
 
       var data = {

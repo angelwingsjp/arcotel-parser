@@ -52,12 +52,23 @@ async function main() {
           console.log(); // Пустая строка для переноса
           console.log(i + 1 - (dayIndex === 1 ? 1 : 0)); // Нумерация пар с 1 со вторника
 
+          let classroomNumber = jsonData[i].classroom; // Выбирает номер класса из собранной информации
+          let classroomType = (classroomNumber && classroomNumber.startsWith("0") ? " (лабораторный корпус)" : " (основной корпус)");
+          
           // Отображение расписания
           if (jsonData[i].subject !== 'Нет пары') {
-            console.log('- Предмет: ' + jsonData[i].subject);
+            if (jsonData[i].subject !== 'Классный час') {
+              console.log('- Предмет: ' + jsonData[i].subject);
+            } else {
+              console.log(jsonData[i].subject);
+            }
             if (jsonData[i].subject !== 'Классный час') {
               console.log('- Преподаватель: ' + jsonData[i].teacher);
-              console.log('- Аудитория: ' + jsonData[i].classroom);
+              if (classroomType) {
+                console.log('- Аудитория: ' + classroomNumber + classroomType);
+              } else {
+                console.log('- Аудитория: неизвестно');
+              }
               console.log('- Тип: ' + jsonData[i].type);
             }
           } else {
