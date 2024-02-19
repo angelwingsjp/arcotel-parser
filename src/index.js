@@ -21,7 +21,7 @@ async function main() {
           const dayName = dayNames[dayIndex];
           console.log(`- Выбранный день: ${dayIndex + 1} (${dayName})`);
         } else {
-          throw new Error("[!] Неверный номер дня");
+          throw new Error('[!] Неверный номер дня');
         }
         console.log(`- Номер группы: ${group}`);
 
@@ -34,8 +34,8 @@ async function main() {
         }
 
         // Query data
-        const query = "?group=" + group + "&date=" + currentDate.toISOString().slice(0, 10);
-        const url = "https://arcotel.ru/studentam/raspisanie-i-grafiki/raspisanie-zanyatiy-studentov-ochnoy-i-vecherney-form-obucheniya" + query;
+        const query = '?group=' + group + '&date=' + currentDate.toISOString().slice(0, 10);
+        const url = 'https://arcotel.ru/studentam/raspisanie-i-grafiki/raspisanie-zanyatiy-studentov-ochnoy-i-vecherney-form-obucheniya' + query;
                 
         // set user-agent
         const getUserAgents = fs.readFileSync('user-agents.txt', 'utf-8').split('\n');
@@ -57,23 +57,23 @@ async function main() {
           console.log(i + 1 - (dayIndex === 1 ? 1 : 0)); // Нумерация пар с 1 со вторника
 
           let classroomNumber = jsonData[i].classroom; // Выбирает номер класса из собранной информации
-          let classroomType = (classroomNumber && classroomNumber.startsWith("0") ? " (лабораторный корпус)" : " (основной корпус)");
+          let classroomType = (classroomNumber && classroomNumber.startsWith('0') ? 'лабораторный корпус' : 'основной корпус');
           
           // Отображение расписания
           if (jsonData[i].subject !== 'Нет пары') {
             if (jsonData[i].subject !== 'Классный час') {
-              console.log('- Предмет: ' + jsonData[i].subject);
+              console.log(`- Предмет: ${jsonData[i].subject}`);
             } else {
               console.log(jsonData[i].subject);
             }
             if (jsonData[i].subject !== 'Классный час') {
-              console.log('- Преподаватель: ' + jsonData[i].teacher);
+              console.log(`- Преподаватель: ${jsonData[i].teacher}`);
               if (classroomType) {
-                console.log('- Аудитория: ' + classroomNumber + classroomType);
+                console.log(`- Аудитория: ${classroomNumber} (${classroomType})`);
               } else {
-                console.log('- Аудитория: неизвестно');
+                console.log(`- Аудитория: неизвестно`);
               }
-              console.log('- Тип: ' + jsonData[i].type);
+              console.log(`- Тип: ${jsonData[i].type}`);
             }
           } else {
             console.log(jsonData[i].subject);

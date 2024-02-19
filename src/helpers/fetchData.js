@@ -24,7 +24,7 @@ async function fetchData(url, userAgent, selectedDay) {
     const html = response.data;
     const $ = cheerio.load(html);
 
-    const getCurrentWeek = textbeautifier($("div.vt234").find("span").text());
+    const getCurrentWeek = textbeautifier($('div.vt234').find('span').text());
     console.log(`- Текущая неделя: ${getCurrentWeek}`);
 
     let subjectIndex = (selectedDay != 1) ? 1 : 0;
@@ -32,10 +32,10 @@ async function fetchData(url, userAgent, selectedDay) {
 
     let jsonData = [];
     for (const q of i) {
-      const subject = textbeautifier($(q).find(".vt240").text());
-      const teacher = textbeautifier($(q).find(".teacher").text());
-      const classroom = textbeautifier($(q).find(".vt242").text()).replace(/[^0-9]/g, "");
-      const type = textbeautifier($(q).find(".vt243").text());
+      const subject = textbeautifier($(q).find('.vt240').text());
+      const teacher = textbeautifier($(q).find('.teacher').text());
+      const classroom = textbeautifier($(q).find('.vt242').text()).replace(/[^0-9]/g, '');
+      const type = textbeautifier($(q).find('.vt243').text());
 
       var data = {
         index: subjectIndex,
