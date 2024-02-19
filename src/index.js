@@ -23,7 +23,7 @@ async function main() {
         } else {
           throw new Error('[!] Неверный номер дня');
         }
-        console.log(`- Номер группы: ${group}`);
+        console.log(`- Выбранная группа: ${getGroupName(group)} (${group})`);
 
         // Получение текущей даты, отброс воскресенья
         let currentDate = new Date();
@@ -83,6 +83,18 @@ async function main() {
     });
   } catch (error) {
     console.error(error);
+  }
+}
+
+function getGroupName(groupId) {
+  try {
+    const jsonString = fs.readFileSync('groups.json', 'utf-8');
+    const groups = JSON.parse(jsonString);
+    const group = groups.find((g) => g.groupId === groupId);
+    return group ? group.groupName : 'Неизвестная группа';
+  } catch (error) {
+    console.error(error);
+    return 'Неизвестная группа';
   }
 }
 

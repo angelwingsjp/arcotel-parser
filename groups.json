@@ -1,0 +1,194 @@
+[
+  {
+    "groupName": "ИСПВ-02",
+    "groupId": "54649"
+  },
+  {
+    "groupName": "ИСПВ-12",
+    "groupId": "55070"
+  },
+  {
+    "groupName": "ИСПВ-21",
+    "groupId": "55384"
+  },
+  {
+    "groupName": "ИСПВ-22",
+    "groupId": "55386"
+  },
+  {
+    "groupName": "ИСПВ-32",
+    "groupId": "55718"
+  },
+  {
+    "groupName": "ИСПП-01",
+    "groupId": "54648"
+  },
+  {
+    "groupName": "ИСПП-11",
+    "groupId": "55069"
+  },
+  {
+    "groupName": "ИСПП-21",
+    "groupId": "55382"
+  },
+  {
+    "groupName": "ИСПП-31",
+    "groupId": "55716"
+  },
+  {
+    "groupName": "ИСПП-34",
+    "groupId": "55720"
+  },
+  {
+    "groupName": "ИСПП-35",
+    "groupId": "55725"
+  },
+  {
+    "groupName": "ИСС-01",
+    "groupId": "54651"
+  },
+  {
+    "groupName": "ИСС-11",
+    "groupId": "55073"
+  },
+  {
+    "groupName": "ИСС-12",
+    "groupId": "55074"
+  },
+  {
+    "groupName": "ИСС-15",
+    "groupId": "55076"
+  },
+  {
+    "groupName": "ИСС-21",
+    "groupId": "55393"
+  },
+  {
+    "groupName": "ИСС-22",
+    "groupId": "55395"
+  },
+  {
+    "groupName": "ИСС-25",
+    "groupId": "55397"
+  },
+  {
+    "groupName": "ИСС-31",
+    "groupId": "55723"
+  },
+  {
+    "groupName": "ИСС-32",
+    "groupId": "55724"
+  },
+  {
+    "groupName": "ИСС-35",
+    "groupId": "55727"
+  },
+  {
+    "groupName": "КСК-01",
+    "groupId": "54645"
+  },
+  {
+    "groupName": "КСК-11",
+    "groupId": "55067"
+  },
+  {
+    "groupName": "КСК-15",
+    "groupId": "55077"
+  },
+  {
+    "groupName": "КСК-21",
+    "groupId": "55376"
+  },
+  {
+    "groupName": "КСК-22",
+    "groupId": "55377"
+  },
+  {
+    "groupName": "КСК-31",
+    "groupId": "55714"
+  },
+  {
+    "groupName": "ОИБ-01",
+    "groupId": "54650"
+  },
+  {
+    "groupName": "ОИБ-11",
+    "groupId": "55071"
+  },
+  {
+    "groupName": "ОИБ-15",
+    "groupId": "55079"
+  },
+  {
+    "groupName": "ОИБ-21",
+    "groupId": "55387"
+  },
+  {
+    "groupName": "ОИБ-25",
+    "groupId": "55388"
+  },
+  {
+    "groupName": "ОИБ-31",
+    "groupId": "55721"
+  },
+  {
+    "groupName": "ОИБ-35",
+    "groupId": "55726"
+  },
+  {
+    "groupName": "ПКС-01",
+    "groupId": "54647"
+  },
+  {
+    "groupName": "Р-11",
+    "groupId": "55072"
+  },
+  {
+    "groupName": "Р-21",
+    "groupId": "55389"
+  },
+  {
+    "groupName": "Р-25",
+    "groupId": "55391"
+  },
+  {
+    "groupName": "РМТ-31",
+    "groupId": "55722"
+  },
+  {
+    "groupName": "РМТ-35",
+    "groupId": "55728"
+  },
+  {
+    "groupName": "ССА-01",
+    "groupId": "54646"
+  },
+  {
+    "groupName": "ССА-11",
+    "groupId": "55068"
+  },
+  {
+    "groupName": "ССА-15",
+    "groupId": "55078"
+  },
+  {
+    "groupName": "ССА-21",
+    "groupId": "55378"
+  },
+  {
+    "groupName": "ССА-22",
+    "groupId": "55380"
+  },
+  {
+    "groupName": "ССА-25",
+    "groupId": "55381"
+  },
+  {
+    "groupName": "ССА-31",
+    "groupId": "55715"
+  },
+  {
+    "groupName": "ССА-35",
+    "groupId": "55729"
+  }
+]
