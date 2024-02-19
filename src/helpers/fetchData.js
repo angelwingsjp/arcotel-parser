@@ -10,14 +10,14 @@ const textbeautifier = (text) => {
  * Получение данных с указанного URL с использованием заданного заголовка User-Agent.
  *
  * @param {string} url - URL-адрес, с которого нужно получить данные
- * @param {string} ua - Заголовок User-Agent
+ * @param {string} userAgent - Заголовок User-Agent
  * @param {number} selectedDay - Выбранный день для сбора данных
  */
-async function fetchData(url, ua, selectedDay) {
+async function fetchData(url, userAgent, selectedDay) {
   try {
     const response = await axios.get(url, {
       headers: {
-        'User-Agent': ua,
+        'User-Agent': userAgent,
       }
     });
 

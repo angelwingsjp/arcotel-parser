@@ -1,3 +1,4 @@
+const fs = require('fs');
 const readline = require('readline');
 
 const fetchData = require('./helpers/fetchData.js');
@@ -35,9 +36,12 @@ async function main() {
         // Query data
         const query = "?group=" + group + "&date=" + currentDate.toISOString().slice(0, 10);
         const url = "https://arcotel.ru/studentam/raspisanie-i-grafiki/raspisanie-zanyatiy-studentov-ochnoy-i-vecherney-form-obucheniya" + query;
-        const ua = 'Mediapartners-Google';
+                
+        // set user-agent
+        const getUserAgents = fs.readFileSync('user-agents.txt', 'utf-8').split('\n');
+        const userAgent = getUserAgents[Math.floor(Math.random() * getUserAgents.length)];
         
-        const jsonData = await fetchData(url, ua, selectedDay);
+        const jsonData = await fetchData(url, userAgent, selectedDay);
         for (let i = 0; i < jsonData.length; i++) {
           if (i === 0 && dayIndex === 1) {
             continue; // Пропустить первую пару во вторник

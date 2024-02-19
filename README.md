@@ -11,7 +11,10 @@
 ## Подготовка исходников
 1. Склонируйте исходный код, используя команду `git clone https://github.com/muuneneko/arcotel-parser/`
 2. Найдите ID своей группы, следуя [данной таблице](https://github.com/muuneneko/arcotel-parser/blob/main/docs/groups.md)
-3. А теперь... \*барабанная дробь\* Вы готовы к `node src/index.js`!
+3. Подготовьте свои User-agent, вставьте в [user-agents.txt](https://github.com/muuneneko/arcotel-parser/blob/main/user-agents.txt), разделяя их переносом строки
+> [!NOTE]
+> Вы можете вставить и один user-agent
+4. А теперь... \*барабанная дробь\* Вы готовы к `node src/index.js`!
 
 ## Предварительный показ работы скрипта
 ![preview.gif](https://github.com/muuneneko/arcotel-parser/blob/main/preview.gif)
