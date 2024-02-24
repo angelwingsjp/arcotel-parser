@@ -1,1 +1,1 @@
-axios cheerio
+axios cheerio user-agents

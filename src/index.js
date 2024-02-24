@@ -8,9 +8,25 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+const jsonString = fs.readFileSync('groups.json', 'utf-8');
+const groups = JSON.parse(jsonString);
+
 async function main() {
   try {
-    rl.question('Введите номер группы: ', async (group) => {
+    rl.question('Введите номер группы: ', async (groupInput) => {
+      const group = getGroupId(groupInput);
+
+      // Проверяем, удалось ли получить ID группы
+      if (!group) {
+        throw new Error('[!] Неправильный формат ввода номера группы');
+      }
+
+      // Проверяем существование группы в файле groups.json
+      const groupExists = groups.some((g) => g.groupId === group);
+      if (!groupExists) {
+        throw new Error('[!] Группы с таким номером не существует');
+      }
+
       rl.question('Введите номер выбранного дня: ', async (selectedDay) => {
         rl.close();
 
@@ -27,8 +43,8 @@ async function main() {
 
         // Получение текущей даты, отброс воскресенья
         let currentDate = new Date();
-        const day = currentDate.getDay(); 
-        const isSunday = (day === 0); 
+        const day = currentDate.getDay();
+        const isSunday = (day === 0);
         if (isSunday) {
           currentDate.setDate(currentDate.getDate() + 1);
         }
@@ -36,12 +52,8 @@ async function main() {
         // Query data
         const query = '?group=' + group + '&date=' + currentDate.toISOString().slice(0, 10);
         const url = 'https://arcotel.ru/studentam/raspisanie-i-grafiki/raspisanie-zanyatiy-studentov-ochnoy-i-vecherney-form-obucheniya' + query;
-                
-        // set user-agent
-        const getUserAgents = fs.readFileSync('user-agents.txt', 'utf-8').split('\n');
-        const userAgent = getUserAgents[Math.floor(Math.random() * getUserAgents.length)];
-        
-        const jsonData = await fetchData(url, userAgent, selectedDay);
+
+        const jsonData = await fetchData(url, selectedDay);
         for (let i = 0; i < jsonData.length; i++) {
           if (i === 0 && dayIndex === 1) {
             continue; // Пропустить первую пару во вторник
@@ -58,7 +70,7 @@ async function main() {
 
           let classroomNumber = jsonData[i].classroom; // Выбирает номер класса из собранной информации
           let classroomType = (classroomNumber && classroomNumber.startsWith('0') ? 'лабораторный корпус' : 'основной корпус');
-          
+
           // Отображение расписания
           if (jsonData[i].subject !== 'Нет пары') {
             if (jsonData[i].subject !== 'Классный час') {
@@ -86,11 +98,33 @@ async function main() {
   }
 }
 
-function getGroupName(groupId) {
+function getGroupId(groupInput) {
+  const input = groupInput.toUpperCase();
+  const groupNameRegex = /^[А-ЯA-Z]{1,4}[ \-+_]\d{2}$/;
+
+  if (!isNaN(input)) {
+    return input;
+  }
+
+  if (typeof input === 'string' && groupNameRegex.test(input)) {
+    const cleanedInput = input.replace(/[ \-+_]/g, '-');
+
+    const jsonString = fs.readFileSync('groups.json', 'utf-8');
+    const groups = JSON.parse(jsonString);
+    const group = groups.find((g) => g.groupName.toUpperCase() === cleanedInput);
+    if (group) {
+      return group.groupId;
+    }
+  }
+
+  return null;
+}
+
+function getGroupName(groupInput) {
   try {
     const jsonString = fs.readFileSync('groups.json', 'utf-8');
     const groups = JSON.parse(jsonString);
-    const group = groups.find((g) => g.groupId === groupId);
+    const group = groups.find((g) => g.groupId === groupInput || g.groupName === groupInput);
     return group ? group.groupName : 'Неизвестная группа';
   } catch (error) {
     console.error(error);
@@ -98,4 +132,4 @@ function getGroupName(groupId) {
   }
 }
 
-main();
+main().catch(console.error);

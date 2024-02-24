@@ -1,20 +1,21 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
+const UserAgent = require('user-agents');
 
 // Константа, удаляющая мусорную табуляцию и перенос строк
 const textbeautifier = (text) => {
-    return text.replace(/\t|\n/g, '');
+  return text.replace(/\t|\n/g, '');
 };
 
 /**
- * Получение данных с указанного URL с использованием заданного заголовка User-Agent.
+ * Получение данных с указанного URL 
  *
  * @param {string} url - URL-адрес, с которого нужно получить данные
- * @param {string} userAgent - Заголовок User-Agent
  * @param {number} selectedDay - Выбранный день для сбора данных
  */
-async function fetchData(url, userAgent, selectedDay) {
+async function fetchData(url, selectedDay) {
   try {
+    const userAgent = new UserAgent().toString();
     const response = await axios.get(url, {
       headers: {
         'User-Agent': userAgent,
